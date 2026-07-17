@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team Rainbow — Queensland's LGBTQIA+ Community</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F5F7F2;
+    --paper-warm: #EFEEE4;
+    --ink: #10241F;
+    --eucalypt: #1D6C4F;
+    --eucalypt-dark: #123A2B;
+    --eucalypt-light: #46A67B;
+    --sun: #F0B233;
+    --pink: #E63888;
+    --line: rgba(16,36,31,0.14);
+    --line-soft: rgba(16,36,31,0.08);
+    --radius: 14px;
+    --display: 'Unbounded', sans-serif;
+    --body: 'Public Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 28px; }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(245,247,242,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .nav-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px;
+    max-width:1120px; margin:0 auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--display); font-weight:800; font-size:18px;
+    letter-spacing:-0.01em;
+  }
+  .brand img{
+    height:32px; width:32px; object-fit:contain; border-radius:8px;
+  }
+  footer .brand img{ height:28px; width:28px; }
+  .brand .region{
+    font-family:var(--mono); font-weight:500; font-size:11px;
+    letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--eucalypt-light);
+    padding:4px 8px; border:1px solid var(--line); border-radius:6px;
+  }
+  .nav-links{ display:flex; gap:28px; font-size:14px; font-weight:600; }
+  .nav-links a{ text-decoration:none; opacity:0.75; transition:opacity .15s; }
+  .nav-links a:hover{ opacity:1; }
+  .nav-cta{
+    background:var(--eucalypt); color:#fff; font-weight:700; font-size:14px;
+    padding:10px 18px; border-radius:999px; text-decoration:none;
+    box-shadow:0 1px 0 rgba(0,0,0,0.06);
+  }
+  .nav-toggle{ display:none; }
+
+  /* ---------- HERO / SIGN ---------- */
+  .hero{
+    background:
+      radial-gradient(ellipse at 15% -10%, rgba(240,178,51,0.16), transparent 55%),
+      linear-gradient(180deg, var(--eucalypt-dark), var(--eucalypt) 78%);
+    color:#fff;
+    padding:76px 0 0;
+    overflow:hidden;
+    position:relative;
+  }
+  .hero-inner{ max-width:1120px; margin:0 auto; padding:0 28px; position:relative; z-index:1; }
+
+  /* rainbow arch — quiet accent tucked behind the sign panel */
+  .rainbow-arch{
+    position:absolute;
+    right:-70px; bottom:-150px;
+    width:440px; height:220px;
+    z-index:0;
+    opacity:0.65;
+    pointer-events:none;
+  }
+  .rainbow-arch span{
+    position:absolute;
+    left:50%; bottom:0;
+    transform:translateX(-50%);
+    box-sizing:border-box;
+    border-style:solid;
+    border-bottom:none;
+  }
+  .rainbow-arch span:nth-child(1){ width:440px; height:220px; border-radius:220px 220px 0 0; border-width:15px; border-color:#E4002B; }
+  .rainbow-arch span:nth-child(2){ width:392px; height:196px; border-radius:196px 196px 0 0; border-width:15px; border-color:#F7941D; }
+  .rainbow-arch span:nth-child(3){ width:344px; height:172px; border-radius:172px 172px 0 0; border-width:15px; border-color:#FFD100; }
+  .rainbow-arch span:nth-child(4){ width:296px; height:148px; border-radius:148px 148px 0 0; border-width:15px; border-color:#00A651; }
+  .rainbow-arch span:nth-child(5){ width:248px; height:124px; border-radius:124px 124px 0 0; border-width:15px; border-color:#0071BC; }
+  .rainbow-arch span:nth-child(6){ width:200px; height:100px; border-radius:100px 100px 0 0; border-width:15px; border-color:#662D91; }
+  @media (max-width:620px){
+    .rainbow-arch{ right:-110px; bottom:-170px; width:340px; height:170px; opacity:0.4; }
+  }
+  .eyebrow-row{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--mono); font-size:12px; letter-spacing:0.14em;
+    text-transform:uppercase; color:rgba(255,255,255,0.65);
+    margin-bottom:22px;
+  }
+  .eyebrow-dot{
+    width:8px; height:8px; border-radius:50%;
+    background:conic-gradient(from 90deg,#E4002B,#F7941D,#FFD100,#00A651,#0071BC,#662D91,#E4002B);
+  }
+
+  .sign-panel{
+    border:3px solid rgba(255,255,255,0.9);
+    border-radius:10px;
+    padding:34px 32px 30px;
+    position:relative;
+    animation: sign-in .7s cubic-bezier(.2,.8,.2,1) both;
+    box-shadow:
+      0 0 0 6px rgba(230,56,136,0.10),
+      0 0 0 12px rgba(240,178,51,0.08),
+      0 0 34px 10px rgba(142,92,217,0.14);
+  }
+  .sign-panel::before{
+    content:"";
+    position:absolute; inset:8px;
+    border:1px dashed rgba(255,255,255,0.35);
+    border-radius:6px;
+    pointer-events:none;
+  }
+  .sign-logo{
+    position:absolute; top:24px; right:28px;
+    width:56px; height:56px; object-fit:contain;
+    border-radius:12px;
+    background:rgba(255,255,255,0.92);
+    padding:6px;
+  }
+  @media (max-width:620px){ .sign-logo{ width:42px; height:42px; top:18px; right:18px; } }
+  @keyframes sign-in{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .sign-welcome{
+    font-family:var(--mono); font-size:13px; letter-spacing:0.2em;
+    text-transform:uppercase; color:var(--sun); margin-bottom:6px;
+  }
+  h1.sign-title{
+    font-family:var(--display); font-weight:800;
+    font-size:clamp(40px, 7vw, 76px);
+    line-height:0.98; letter-spacing:-0.01em;
+    margin:0 0 18px;
+  }
+  .sign-title .small{ font-weight:600; font-size:0.42em; display:block; letter-spacing:0.01em; margin-top:6px; }
+  .hero-copy{
+    font-size:17px; max-width:520px; color:rgba(255,255,255,0.82);
+    margin:0 0 30px;
+  }
+  .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:8px; }
+  .btn{
+    font-family:var(--body); font-weight:700; font-size:15px;
+    padding:13px 24px; border-radius:999px; text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s ease, box-shadow .15s ease;
+    border:1px solid transparent;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-sun{ background:var(--sun); color:var(--eucalypt-dark); }
+  .btn-sun:hover{ box-shadow:0 8px 20px rgba(240,178,51,0.3), 0 2px 24px rgba(230,56,136,0.25); }
+  .btn-ghost{ background:transparent; color:#fff; border-color:rgba(255,255,255,0.5); }
+  .btn-ghost:hover{ background:rgba(255,255,255,0.08); }
+
+  /* distance marker strip */
+  .distances{
+    margin-top:28px;
+    border-top:2px solid transparent;
+    border-image:linear-gradient(90deg,#E4002B,#F7941D,#FFD100,#00A651,#0071BC,#662D91) 1;
+    padding-top:18px;
+    display:flex; flex-wrap:wrap; gap:0;
+  }
+  .dist{
+    font-family:var(--mono); font-size:13px; color:rgba(255,255,255,0.85);
+    padding:6px 18px 6px 0; margin-right:18px;
+    border-right:1px solid rgba(255,255,255,0.25);
+    display:flex; align-items:baseline; gap:8px;
+  }
+  .dist:last-child{ border-right:none; }
+  .dist b{ font-family:var(--display); font-weight:600; color:#fff; font-size:14px; }
+  .dist span{ color:rgba(255,255,255,0.55); }
+
+  .hero-strip{
+    height:10px; margin-top:56px;
+    background:linear-gradient(90deg,#E4002B,#F7941D,#00A651,#1F4E43,#0071BC,#662D91);
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section{ padding:72px 0; }
+  .section-head{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    margin-bottom:34px; gap:20px; flex-wrap:wrap;
+  }
+  .section-eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--eucalypt-light); margin-bottom:8px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .section-eyebrow::before{
+    content:"";
+    width:16px; height:3px; border-radius:2px; flex-shrink:0;
+    background:linear-gradient(90deg,#E4002B,#F7941D,#FFD100,#00A651,#0071BC,#662D91);
+  }
+  h2{
+    font-family:var(--display); font-weight:800; font-size:clamp(26px,3.4vw,36px);
+    margin:0; letter-spacing:-0.01em;
+  }
+  .section-link{
+    font-weight:700; font-size:14px; text-decoration:none;
+    color:var(--eucalypt); border-bottom:3px solid transparent;
+    border-image:linear-gradient(90deg,#E4002B,#F7941D,#00A651,#662D91) 1;
+    padding-bottom:3px; white-space:nowrap;
+  }
+
+  /* events — noticeboard flyers */
+  .board{
+    background:var(--paper-warm);
+    border-radius:20px;
+    padding:44px 36px 52px;
+    position:relative;
+  }
+  .flyers{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:26px;
+  }
+  .flyer{
+    background:#fff;
+    border-radius:8px;
+    padding:22px 20px 24px;
+    box-shadow:0 10px 26px rgba(16,36,31,0.08), 0 2px 0 rgba(16,36,31,0.03);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .flyer:nth-child(1){ transform:rotate(-1.4deg); }
+  .flyer:nth-child(2){ transform:rotate(0.9deg); }
+  .flyer:nth-child(3){ transform:rotate(-0.6deg); }
+  .flyer:hover{ transform:rotate(0deg) translateY(-4px); box-shadow:0 16px 30px rgba(16,36,31,0.14); }
+  .pin{
+    width:10px; height:10px; border-radius:50%;
+    background:var(--pink); margin:0 auto 14px;
+    box-shadow:0 2px 4px rgba(0,0,0,0.2);
+  }
+  .flyer:nth-child(1) .pin{ background:#E4002B; }
+  .flyer:nth-child(2) .pin{ background:#F7941D; }
+  .flyer:nth-child(3) .pin{ background:#662D91; }
+  .flyer-date{
+    font-family:var(--mono); font-size:12px; color:var(--eucalypt);
+    letter-spacing:0.06em; text-transform:uppercase; margin-bottom:10px;
+  }
+  .flyer h3{
+    font-family:var(--display); font-weight:600; font-size:19px;
+    margin:0 0 8px; line-height:1.2;
+  }
+  .flyer p{ font-size:14px; color:rgba(16,36,31,0.68); margin:0 0 14px; }
+  .flyer-meta{
+    font-size:12.5px; font-weight:600; color:var(--eucalypt-light);
+    display:flex; align-items:center; gap:6px;
+  }
+
+  /* groups grid */
+  .groups{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:18px;
+  }
+  .group-card{
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:24px 20px;
+    background:#fff;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .group-card:hover{ border-color:var(--eucalypt-light); transform:translateY(-3px); }
+  .group-icon{
+    width:38px; height:38px; border-radius:10px;
+    background:var(--eucalypt); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--display); font-weight:800; font-size:15px;
+    margin-bottom:16px;
+  }
+  .group-card:nth-child(1) .group-icon{ background:#E4002B; }
+  .group-card:nth-child(2) .group-icon{ background:#F7941D; color:var(--ink); }
+  .group-card:nth-child(3) .group-icon{ background:#00A651; }
+  .group-card:nth-child(4) .group-icon{ background:#662D91; }
+  .group-card h3{ font-size:16px; margin:0 0 6px; font-weight:700; }
+  .group-card p{ font-size:13.5px; color:rgba(16,36,31,0.65); margin:0; }
+
+  /* membership card */
+  .join{
+    background:var(--ink);
+    border-radius:24px;
+    padding:52px;
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px;
+    align-items:center;
+    color:#fff;
+    position:relative; overflow:hidden;
+  }
+  .join::after{
+    content:""; position:absolute; right:-60px; top:-60px;
+    width:220px; height:220px; border-radius:50%;
+    background:radial-gradient(circle, rgba(230,56,136,0.35), transparent 70%);
+  }
+  .join .rainbow-arch{
+    left:-90px; right:auto; top:-140px; bottom:auto;
+    transform:rotate(180deg);
+    opacity:0.4;
+  }
+  .join-copy .section-eyebrow{ color:var(--sun); }
+  .join h2{ color:#fff; margin-bottom:14px; }
+  .join p{ color:rgba(255,255,255,0.72); font-size:15px; max-width:420px; margin:0 0 24px; }
+
+  .card-mock{
+    background:linear-gradient(135deg, var(--eucalypt-light), var(--eucalypt-dark));
+    border-radius:16px;
+    padding:26px;
+    position:relative;
+    box-shadow:0 20px 40px rgba(0,0,0,0.35);
+  }
+  .card-mock .top-row{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:36px; }
+  .card-mock .rc-label{ font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; opacity:0.8; }
+  .card-mock .rc-strip{ width:34px; height:22px; border-radius:4px; background:var(--sun); }
+  .card-mock .rc-name{ font-family:var(--display); font-weight:600; font-size:18px; margin-bottom:4px; }
+  .card-mock .rc-meta{ font-family:var(--mono); font-size:12px; opacity:0.75; letter-spacing:0.06em; }
+
+  /* footer */
+  footer{ border-top:none; padding:0 0 36px; }
+  .footer-strip{
+    height:6px;
+    background:linear-gradient(90deg,#E4002B,#F7941D,#FFD100,#00A651,#0071BC,#662D91);
+    margin-bottom:44px;
+  }
+  .foot-row{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px; margin-bottom:28px; }
+  .foot-hubs{ display:flex; gap:14px; flex-wrap:wrap; }
+  .foot-hubs a{
+    font-family:var(--mono); font-size:12px; text-decoration:none;
+    padding:6px 12px; border:1px solid var(--line); border-radius:999px;
+    color:var(--eucalypt); letter-spacing:0.04em;
+  }
+  .foot-fine{ font-size:12.5px; color:rgba(16,36,31,0.5); }
+
+  /* sponsors */
+  .sponsors-grid{
+    display:grid; grid-template-columns:repeat(6,1fr); gap:16px;
+  }
+  .sponsor-tile{
+    background:#fff; border:1px solid var(--line);
+    border-radius:12px; padding:20px 16px;
+    display:flex; align-items:center; justify-content:center;
+    height:84px;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .sponsor-tile:hover{ border-color:var(--eucalypt-light); transform:translateY(-2px); }
+  .sponsor-tile img{
+    max-height:38px; max-width:100%; width:auto; object-fit:contain;
+    filter:grayscale(1); opacity:0.65;
+    transition:filter .2s ease, opacity .2s ease;
+  }
+  .sponsor-tile:hover img{ filter:grayscale(0); opacity:1; }
+  @media (max-width:860px){ .sponsors-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:520px){ .sponsors-grid{ grid-template-columns:repeat(2,1fr); } }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 860px){
+    .flyers{ grid-template-columns:1fr; }
+    .groups{ grid-template-columns:1fr 1fr; }
+    .join{ grid-template-columns:1fr; padding:36px 26px; }
+  }
+  @media (max-width: 620px){
+    .nav-links{ display:none; }
+    .groups{ grid-template-columns:1fr; }
+    .distances{ flex-direction:column; }
+    .dist{ border-right:none; border-bottom:1px solid rgba(255,255,255,0.2); padding:8px 0; margin-right:0; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+
+  :focus-visible{ outline:3px solid var(--pink); outline-offset:2px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-row">
+    <div class="brand"><img src="https://teamrainbow.org.au/wp-content/uploads/2025/08/cropped-team_rainbow_logo-270x270.png" alt="Team Rainbow logo"> Team Rainbow <span class="region">Queensland</span></div>
+    <div class="nav-links">
+      <a href="#events">What's on</a>
+      <a href="#groups">Local groups</a>
+      <a href="#join">Join</a>
+      <a href="#regions">Other regions</a>
+    </div>
+    <a class="nav-cta" href="#join">Join up</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="rainbow-arch" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="hero-inner">
+    <div class="eyebrow-row"><span class="eyebrow-dot"></span> Regional hub · Queensland</div>
+
+    <div class="sign-panel">
+      <img class="sign-logo" src="https://teamrainbow.org.au/wp-content/uploads/2025/08/cropped-team_rainbow_logo-270x270.png" alt="Team Rainbow logo">
+      <div class="sign-welcome">Welcome to</div>
+      <h1 class="sign-title">Team Rainbow Queensland<span class="small">connecting the state's LGBTQIA+ community</span></h1>
+      <p class="hero-copy">Sport, social events, support groups and allies for Queensland's diverse LGBTQIA+ community — connecting regional hubs from Cairns to the Gold Coast.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-sun" href="#events">See what's on</a>
+        <a class="btn btn-ghost" href="#join">Join your local group</a>
+      </div>
+
+      <div class="distances">
+        <div class="dist"><b>Toowoomba</b><span>128 km</span></div>
+        <div class="dist"><b>Sunshine Coast</b><span>100 km</span></div>
+        <div class="dist"><b>Gold Coast</b><span>78 km</span></div>
+        <div class="dist"><b>Townsville</b><span>1,360 km</span></div>
+        <div class="dist"><b>Cairns</b><span>1,700 km</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-strip"></div>
+</header>
+
+<main>
+  <section id="events">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow">This month</div>
+          <h2>What's on near you</h2>
+        </div>
+        <a class="section-link" href="#">Full calendar →</a>
+      </div>
+
+      <div class="board">
+        <div class="flyers">
+          <article class="flyer">
+            <div class="pin"></div>
+            <div class="flyer-date">Sat 25 Jul · 6:00pm</div>
+            <h3>Trivia &amp; Social Night</h3>
+            <p>Casual quiz night at a local ally venue — new faces always welcome, no team required.</p>
+            <div class="flyer-meta">📍 Ruthven Street</div>
+          </article>
+          <article class="flyer">
+            <div class="pin"></div>
+            <div class="flyer-date">Wed 5 Aug · 5:30pm</div>
+            <h3>Walking Group</h3>
+            <p>Easy-pace evening walk through Queens Park, followed by coffee for anyone keen to stay on.</p>
+            <div class="flyer-meta">📍 Queens Park</div>
+          </article>
+          <article class="flyer">
+            <div class="pin"></div>
+            <div class="flyer-date">Sun 16 Aug · 11:00am</div>
+            <h3>Regional Sports Come-and-Try</h3>
+            <p>Netball and touch football taster session with coaches from your local inclusive sports league.</p>
+            <div class="flyer-meta">📍 Clive Berghofer Rec Precinct</div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="groups">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow">Community directory</div>
+          <h2>Local groups &amp; spaces</h2>
+        </div>
+        <a class="section-link" href="#">Suggest a listing →</a>
+      </div>
+
+      <div class="groups">
+        <div class="group-card">
+          <div class="group-icon">TRC</div>
+          <h3>Toowoomba Rainbow Community</h3>
+          <p>Peer support and social meetups for LGBTQIA+ adults in the Darling Downs region.</p>
+        </div>
+        <div class="group-card">
+          <div class="group-icon">GSG</div>
+          <h3>Gay Sporting Groups Network</h3>
+          <p>Team Rainbow's directory of inclusive sporting clubs and their supporters statewide.</p>
+        </div>
+        <div class="group-card">
+          <div class="group-icon">GCR</div>
+          <h3>Gold Coast Rainbow Communities</h3>
+          <p>Social and support network for LGBTQIA+ community members on the Gold Coast.</p>
+        </div>
+        <div class="group-card">
+          <div class="group-icon">QCH</div>
+          <h3>QLD Council LGBTQIA+ Health</h3>
+          <p>Statewide health and wellbeing support service for Queensland's LGBTQIA+ community.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="join">
+    <div class="wrap">
+      <div class="join">
+        <div class="rainbow-arch" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="join-copy">
+          <div class="section-eyebrow">Membership</div>
+          <h2>One card, every regional hub</h2>
+          <p>A Team Rainbow membership connects you to your local group and every regional hub across Queensland — plus discounted entry to the Gay Games Charity Dinner and partner events.</p>
+          <a class="btn btn-sun" href="#">Join via member portal →</a>
+        </div>
+        <div class="card-mock">
+          <div class="top-row">
+            <span class="rc-label">Team Rainbow</span>
+            <div class="rc-strip"></div>
+          </div>
+          <div class="rc-name">Member since 2026</div>
+          <div class="rc-meta">STATEWIDE · ALL REGIONS</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="regions" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow">Statewide network</div>
+          <h2>Other regional hubs</h2>
+        </div>
+      </div>
+      <div class="foot-hubs">
+        <a href="#">Brisbane</a><a href="#">Sunshine Coast</a><a href="#">Gold Coast</a>
+        <a href="#">Cairns</a><a href="#">Townsville</a><a href="#">Mackay</a><a href="#">Rockhampton</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+  <section id="sponsors" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow">Project associates</div>
+          <h2>Sponsors &amp; partners</h2>
+        </div>
+      </div>
+      <div class="sponsors-grid">
+        <a class="sponsor-tile" href="https://www.clublime.com.au/" target="_blank" rel="noopener"><img src="https://teamrainbow.org.au/wp-content/uploads/2023/03/Club-Lime-.jpg" alt="Club Lime"></a>
+        <a class="sponsor-tile" href="https://www.tenniswarehouse.com.au/" target="_blank" rel="noopener"><img src="https://teamrainbow.org.au/wp-content/uploads/2023/04/Tennis-Warehouse-Australia-Logo2.jpg" alt="Tennis Warehouse Australia"></a>
+        <a class="sponsor-tile" href="https://gaygames.org/" target="_blank" rel="noopener"><img src="https://teamrainbow.org.au/wp-content/uploads/2022/10/Federation-of-Gay-Games-2.jpg" alt="Federation of Gay Games"></a>
+        <a class="sponsor-tile" href="https://www.qld.gov.au/" target="_blank" rel="noopener"><img src="https://teamrainbow.org.au/wp-content/uploads/2023/03/Queensland-Government.jpg" alt="Queensland Government"></a>
+        <a class="sponsor-tile" href="https://www.star.com.au/goldcoast/" target="_blank" rel="noopener"><img src="https://teamrainbow.org.au/wp-content/uploads/2023/03/The-Star.jpg" alt="The Star Gold Coast"></a>
+        <a class="sponsor-tile" href="https://store.slazenger.com/" target="_blank" rel="noopener"><img src="https://teamrainbow.org.au/wp-content/uploads/2023/03/Slazenger-Australia.jpg" alt="Slazenger Australia"></a>
+        <a class="sponsor-tile" href="https://gc2018.com/games/embracing-2018" target="_blank" rel="noopener"><img src="https://teamrainbow.org.au/wp-content/uploads/2022/10/Embracing-The-Games-2018-1.jpg" alt="Embracing The Games 2018"></a>
+        <a class="sponsor-tile" href="https://safespacealliance.com/" target="_blank" rel="noopener"><img src="https://teamrainbow.org.au/wp-content/uploads/2022/10/Safe-Space-Alliance-3.jpg" alt="Safe Space Alliance"></a>
+        <a class="sponsor-tile" href="https://www.pwc.com.au/" target="_blank" rel="noopener"><img src="https://teamrainbow.org.au/wp-content/uploads/2022/10/pwc-1.jpg" alt="PwC"></a>
+        <a class="sponsor-tile" href="http://www.pridehouseinternational.org/gold-coast-australia-2018/" target="_blank" rel="noopener"><img src="https://teamrainbow.org.au/wp-content/uploads/2022/10/2018-Pride-House.jpg" alt="Pride House"></a>
+        <a class="sponsor-tile" href="https://www.interpride.org/" target="_blank" rel="noopener"><img src="https://teamrainbow.org.au/wp-content/uploads/2023/03/InterPride.jpg" alt="InterPride"></a>
+      </div>
+    </div>
+  </section>
+
+<footer>
+  <div class="footer-strip"></div>
+  <div class="wrap">
+    <div class="foot-row">
+      <div class="brand"><img src="https://teamrainbow.org.au/wp-content/uploads/2025/08/cropped-team_rainbow_logo-270x270.png" alt="Team Rainbow logo"> Team Rainbow <span class="region">Queensland</span></div>
+      <div class="foot-hubs">
+        <a href="#">Facebook</a><a href="#">Instagram</a><a href="#">Contact</a>
+      </div>
+    </div>
+    <div class="foot-fine">Team Rainbow Qld — Australian Registered Charity. This page is a design prototype, not the live site.</div>
+  </div>
+</footer>
+
+</body>
+</html>
