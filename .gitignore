@@ -1,0 +1,14 @@
+# ==========================================
+# TeamRainbow - Minimal .gitignore
+# Static HTML/CSS prototype project
+# ==========================================
+
+# Mac OS files
+.DS_Store
+
+# Windows thumbnail files
+Thumbs.db
+
+# IDE files (if you use VS Code or similar)
+.vscode/
+.idea/
